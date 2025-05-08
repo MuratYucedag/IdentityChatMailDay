@@ -10,5 +10,6 @@ namespace IdentityChatMailDay.Context
         {
             optionsBuilder.UseSqlServer("Server=DESKTOP-R7AR1ND;initial Catalog=EmailChatDb;integrated Security=true;trust server certificate=true");
         }
+        public DbSet<Message> Messages { get; set; }
     }
 }
