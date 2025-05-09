@@ -1,17 +1,13 @@
 ﻿@model IdentityChatMailDay.Entities.Message
 
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_MessageLayout.cshtml";
 }
-<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
 
 <div class="container">
     <br />
     <br />
     <form method="post">
-        <label>Gönderici Email</label>
-        <input type="text" asp-for="SenderEmail" class="form-control" />
-        <br />
         <label>Alıcı Email</label>
         <input type="text" asp-for="ReceiverEmail" class="form-control" />
         <br />

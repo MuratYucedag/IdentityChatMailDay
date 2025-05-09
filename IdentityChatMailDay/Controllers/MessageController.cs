@@ -22,16 +22,19 @@ namespace IdentityChatMailDay.Controllers
             ViewBag.v2 = values.Email;
             return View();
         }
-        public async Task< IActionResult> Inbox()
+        public async Task<IActionResult> Inbox()
         {
             var values = await _userManager.FindByNameAsync(User.Identity.Name);
             var messageList = _context.Messages.Where(x => x.ReceiverEmail == values.Email).ToList();
             return View(messageList);
         }
 
-        public IActionResult Sendbox()
+        public async Task<IActionResult> Sendbox()
         {
-            return View();
+            var values = await _userManager.FindByNameAsync(User.Identity.Name);
+            string email = values.Email;
+            var sendMessageList = _context.Messages.Where(x => x.SenderEmail == email).ToList();
+            return View(sendMessageList);
         }
 
         public IActionResult CreateMessage()
@@ -40,8 +43,12 @@ namespace IdentityChatMailDay.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateMessage(Message message)
+        public async Task<IActionResult> CreateMessage(Message message)
         {
+            var values = await _userManager.FindByNameAsync(User.Identity.Name);
+            string x = values.Email;
+
+            message.SenderEmail = x;
             message.SendDate = DateTime.Now;
             message.IsRead = false;
             _context.Messages.Add(message);
